@@ -1,0 +1,33 @@
+Name,Column,Class,Label,Description
+Daily,Developmental_Phase,character,Dormant|Establishment | Early Greening |Late Greening | Peak Greeness | Early Senescence |Drying | Harvest | ,phenology
+Daily,Date,Date,yyyy-mm-dd,calendar date
+Daily,Year,numeric,yyyy-mm-dd,year
+Daily,Month,numeric,mm,month
+Daily,DOY,numeric,NA,julian day of year
+Daily,DAS,numeric,NA,day after sowing
+Daily,Crop,character,Spring Wheat |Corn | Soybean,crop in the field
+Daily,AGB_g_m2_avg,character,g m^-2,mean above ground biomass
+Daily,AGB_se,character,g m^-2,standard error of mean above ground biomass
+Daily,LAI_avg,character,NA,mean leaf area index
+Daily,GY_avg,character,NA,mean grain yield
+Daily,Tair_C,numeric,degrees Celcius,ambient temperature
+Daily,VPD_hPa,numeric,hPa,vapor pressure deficiet
+Daily,ET_mm_d,numeric,mm/d,evapotranspiration
+Daily,PCPN_mm_cor,numeric,mm,total daily precipitation
+Daily,R_in_MJ_m2_d,numeric,MJ m^-2 d^-1,net radiation
+Daily,rH_avg,numeric,percent,mean daily relative humidity
+Daily,NEE_qa_g_C_m2_d,numeric,g m^-2 d^-1,net ecosystem exchange
+Daily,ER_qa_g_C_m2_d,numeric,g m^-2 d^-2,ecosystem respiration
+Daily,GEP_qa_g_C_m2_d,numeric,g m^-2 d^-3,gross ecosystem production
+Daily,VSWC_005cm_avg,numeric,m^3 m^-3,volumeteric soil water content at 5 cm below surface
+Daily,VSWC_010cm_avg,numeric,m^3 m^-3,volumeteric soil water content at 10 cm below surface
+Daily,VSWC_020cm_avg,numeric,m^3 m^-3,volumeteric soil water content at 20 cm below surface
+Daily,VSWC_050cm_avg,numeric,m^3 m^-3,weighted average volumeteric soil water content from 5 to 50 cm below surface
+Daily,SWC_root_zone,numeric,m^3 m^-3,volumeteric soil water content at 50 cm below surface
+Mandan_Exp_Station_Weather,STATION,character,NA,weather station identificaiton number
+Mandan_Exp_Station_Weather,NAME,character,NA,name of weather station
+Mandan_Exp_Station_Weather,DATE,character,mm/dd/yyyyy,Date
+Mandan_Exp_Station_Weather,PRCP,numeric,mm,total daily precipitation
+Mandan_Exp_Station_Weather,SNOW,numeric,mm,total snow
+Mandan_Exp_Station_Weather,TMAX,numeric,degrees Celcius,maximum daily temperature
+Mandan_Exp_Station_Weather,TMIN,numeric,degrees Celcius,mnimum daily temperature
