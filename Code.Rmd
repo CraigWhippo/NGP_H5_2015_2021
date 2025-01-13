@@ -1,5 +1,5 @@
 ---
-title: "H5_2015_2021"
+title: "Seasonal Vapor Pressure Deficit and Temperature Effects on Carbon Dioxide and Water Dynamics in a Prevalent Crop Rotation in the Northern Great Plains"
 output: html_document
 date: "2023-12-18"
 ---
@@ -533,10 +533,10 @@ datebreaks <- seq(as.Date("2015-10-01"), as.Date("2021-12-30"), by = "6 month")
 f1a <- ggplot(Monthly_Summary) +
   geom_rect(aes(xmin = as.Date("2015-10-01"),xmax = as.Date("2016-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2016-08-01"),xmax = as.Date("2017-10-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002) +
   geom_rect(aes(xmin = as.Date("2018-9-01"),xmax = as.Date("2019-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2019-08-01"),xmax = as.Date("2020-09-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_line(aes(x = Date, y = PRCP_sum), color = "grey") +
   geom_line(aes(x = Date, y = Historical_PRCP_NWS), color = "black") +
     geom_point(aes(x = Date, y = PRCP_sum, color = Season)) +
@@ -562,10 +562,10 @@ f1a
 f1b <- ggplot(Monthly_Summary) +
   geom_rect(aes(xmin = as.Date("2015-10-01"),xmax = as.Date("2016-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2016-08-01"),xmax = as.Date("2017-10-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_rect(aes(xmin = as.Date("2018-9-01"),xmax = as.Date("2019-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2019-08-01"),xmax = as.Date("2020-09-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_line(aes(x = Date, y = ET_sum), color = "grey") +
   geom_point(aes(x = Date, y = ET_sum, color = Season)) +
   scale_color_manual(values=c("#8b4513", "#228b22")) +
@@ -583,17 +583,19 @@ f1b
 
 
 Monthly_filtered <- Monthly_Summary %>% 
-  filter(Month != "1",
-         Month != "2",
-         Month != "3")
+  mutate(SWC_50 = case_when(Month == "1" ~ NA,
+                            Month == "2" ~ NA,
+                            Month == "3" ~ NA,
+                            TRUE ~ SWC_50))
+
 
 f1c <- ggplot(Monthly_filtered) + 
   geom_rect(aes(xmin = as.Date("2015-10-01"),xmax = as.Date("2016-08-01"),ymin = 10, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2016-08-01"),xmax = as.Date("2017-10-01"),ymin = 10, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = 10, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = 10, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_rect(aes(xmin = as.Date("2018-9-01"),xmax = as.Date("2019-08-01"),ymin = 10, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2019-08-01"),xmax = as.Date("2020-09-01"),ymin = 10, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = 10, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = 10, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_line(aes(x = Date, y = SWC_50), color = "grey") +
   #geom_line(aes(x = Date, y = Historical_VPD), color = "grey") +
     geom_errorbar(aes(x = Date, ymin = SWC_50 - SWC_50SE, ymax = SWC_50 + SWC_50SE)) +
@@ -616,10 +618,10 @@ f1c
 f1d <- ggplot(Monthly_Summary) +
   geom_rect(aes(xmin = as.Date("2015-10-01"),xmax = as.Date("2016-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2016-08-01"),xmax = as.Date("2017-10-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_rect(aes(xmin = as.Date("2018-9-01"),xmax = as.Date("2019-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2019-08-01"),xmax = as.Date("2020-09-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_line(aes(x = Date, y = VPD_mean), color = "grey") +
   geom_line(aes(x = Date, y = Historical_VPD), color = "black") +
   geom_point(aes(x = Date, y = VPD_mean, color = Season)) +
@@ -639,8 +641,8 @@ F1 <- plot_grid(f1a, f1c, f1b, f1d, labels = "AUTO", ncol = 1)
 
 F1
 
-# ggsave(here("Graphs", "Figure1.pdf"))
-# ggsave(here("Graphs", "Figure1.svg"), dpi = 300)
+#ggsave(here("Graphs", "Figure1.pdf"))
+#ggsave(here("Graphs", "Figure1.svg"), dpi = 300)
 
 ```
 
@@ -651,10 +653,10 @@ F1
 f2a <- ggplot(Monthly_Summary) +
   geom_rect(aes(xmin = as.Date("2015-10-01"),xmax = as.Date("2016-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2016-08-01"),xmax = as.Date("2017-10-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_rect(aes(xmin = as.Date("2018-9-01"),xmax = as.Date("2019-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2019-08-01"),xmax = as.Date("2020-09-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_hline(yintercept = 0, alpha = 0.2) +
   geom_line(aes(x = Date, y = -NEE), color = "black") +
   geom_errorbar(aes(x = Date, ymin = -NEE - -NEESE, ymax = -NEE + - NEESE)) +
@@ -681,10 +683,10 @@ f2a
 f2b <- ggplot(Monthly_Summary) +
   geom_rect(aes(xmin = as.Date("2015-10-01"),xmax = as.Date("2016-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2016-08-01"),xmax = as.Date("2017-10-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_rect(aes(xmin = as.Date("2018-9-01"),xmax = as.Date("2019-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2019-08-01"),xmax = as.Date("2020-09-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_line(aes(x = Date, y = GEP), color = "black") +
   geom_errorbar(aes(x = Date, ymin = GEP -GEPSE, ymax = GEP + GEPSE)) +
     geom_point(aes(x = Date, y = GEP, color = Season)) +
@@ -701,10 +703,10 @@ f2b
 f2c <- ggplot(Monthly_Summary) +
   geom_rect(aes(xmin = as.Date("2015-10-01"),xmax = as.Date("2016-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2016-08-01"),xmax = as.Date("2017-10-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2017-10-01"),xmax = as.Date("2018-9-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_rect(aes(xmin = as.Date("2018-9-01"),xmax = as.Date("2019-08-01"),ymin = -Inf, ymax = Inf), fill="#f5deb3", alpha = .05)+
   geom_rect(aes(xmin = as.Date("2019-08-01"),xmax = as.Date("2020-09-01"),ymin = -Inf, ymax = Inf), fill="#ffa500", alpha = .002)+
-  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#005aff", alpha = .002)+
+  geom_rect(aes(xmin = as.Date("2020-09-01"),xmax = as.Date("2021-09-01"),ymin = -Inf, ymax = Inf), fill= "#deb3f5", alpha = .002)+
   geom_line(aes(x = Date, y = ER), color = "black") +
   geom_errorbar(aes(x = Date, ymin = ER -ERSE, ymax = ER + ERSE)) +
     geom_point(aes(x = Date, y = ER, color = Season)) +
@@ -972,35 +974,37 @@ F3
 ```{r}
 
 
-
-formula <- y ~ x
-equation <- function(x){85.7 + 20.2*x}
+# 
+# formula <- y ~ x
+# equation <- function(x){85.7 + 20.2*x}
 
 f4a <- Seasonal_Summary %>%
   filter(Season != "Full Year") %>% 
-ggplot(aes(x = VPD_mean, y = ET_sum, color = Season)) +
-  geom_point(aes(x = VPD_mean, y = ET_sum, shape = H_Year), size = 2) +
+ggplot(aes(x = VPD_mean, y = ET_mean, color = Season)) +
+  geom_point(aes(x = VPD_mean, y = ET_mean, shape = H_Year), size = 2) +
   geom_errorbar(aes(xmin = VPD_mean - VPDSE, xmax = VPD_mean +  VPDSE)) +
+  geom_errorbar(aes(ymin = ET_mean - ETSE, ymax = ET_mean +  ETSE)) +
     scale_shape_manual(values= shapes, breaks = c("Year1", "Year2", "Year3", "Year4", "Year5", "Year6")) +
-    stat_poly_line(formula = formula, alpha = 0.2) +
-    stat_poly_eq(aes(label =  paste(after_stat(eq.label), "*\": \"*", 
-                                  after_stat(rr.label), "*\", \"*", 
-                                  after_stat(p.value.label), "*\".\"",
-                                  sep = "")),
-               formula = formula, size = eq_size, vstep = 0.06) +
+    #stat_poly_line(formula = formula, alpha = 0.2) +
+    # stat_poly_eq(aes(label =  paste(after_stat(eq.label), "*\": \"*", 
+    #                               after_stat(rr.label), "*\", \"*", 
+    #                               after_stat(p.value.label), "*\".\"",
+    #                               sep = "")),
+    #            formula = formula, size = eq_size, vstep = 0.06) +
+  stat_correlation(mapping = use_label(c("R", "p.value")), label.x = "left", label.y = "top", size = eq_size) +
   theme_classic() +
   theme(legend.position="none")  +
   xlab(expression(~VPD~(hPa))) +
-  ylab(expression(ET~(mm)))
+  ylab(expression(ET~(mm~d^-1)))
 
 
 
 f4a <-  ggpar(f4a, palette = c(#"#178df5",  
-  "#8b4513", "#228b22")) +
-               stat_function(fun = equation, aes(x = VPD_mean), color = "#178df5", alpha = 0.5) +
-  geom_text(aes(4,65, label=(paste(expression("y = 85.7 + 20.2x")))),parse = F, color = "#178df5", size = eq_size)  +
-  geom_text(aes(3,50, label=(paste(expression("R"^2*" = 0.86")))),parse = TRUE, color = "#178df5", size = eq_size) +
-  geom_text(aes(3, 35, label=(paste(expression("P < 0.01 ")))),parse = TRUE, color = "#178df5", size = eq_size)
+  "#8b4513", "#228b22")) #+
+  #              stat_function(fun = equation, aes(x = VPD_mean), color = "#178df5", alpha = 0.5) +
+  # geom_text(aes(4,65, label=(paste(expression("y = 85.7 + 20.2x")))),parse = F, color = "#178df5", size = eq_size)  +
+  # geom_text(aes(3,50, label=(paste(expression("R"^2*" = 0.86")))),parse = TRUE, color = "#178df5", size = eq_size) +
+  # geom_text(aes(3, 35, label=(paste(expression("P < 0.01 ")))),parse = TRUE, color = "#178df5", size = eq_size)
            
 f4a
 
@@ -1009,20 +1013,22 @@ f4a
 
 f4b <- Seasonal_Summary %>%
   filter(Season != "Full Year") %>% 
-ggplot(aes(x = Tair, y = ET_sum, color = Season)) +
-  geom_point(aes(x = Tair, y = ET_sum, shape = H_Year), size = 2) +
+ggplot(aes(x = Tair, y = ET_mean, color = Season)) +
+  geom_point(aes(x = Tair, y = ET_mean, shape = H_Year), size = 2) +
   geom_errorbar(aes(xmin = Tair - TairSE, xmax = Tair +  TairSE)) +
+    geom_errorbar(aes(ymin = ET_mean - ETSE, ymax = ET_mean +  ETSE)) +
     scale_shape_manual(values= shapes, breaks = c("Year1", "Year2", "Year3", "Year4", "Year5", "Year6")) +
   theme_classic() +
-        stat_poly_line(formula = formula, alpha = 0.2) +
-     stat_poly_eq(aes(label =  paste(after_stat(eq.label), "*\": \"*", 
-                                  after_stat(rr.label), "*\", \"*", 
-                                  after_stat(p.value.label), "*\".\"",
-                                  sep = "")),
-               formula = formula, size = eq_size, vstep = 0.06, label.x = "left") +
+     #    stat_poly_line(formula = formula, alpha = 0.2) +
+     # stat_poly_eq(aes(label =  paste(after_stat(eq.label), "*\": \"*", 
+     #                              after_stat(rr.label), "*\", \"*", 
+     #                              after_stat(p.value.label), "*\".\"",
+     #                              sep = "")),
+     #           formula = formula, size = eq_size, vstep = 0.06, label.x = "left") +
   theme(legend.position="none")  +
   xlab(expression('Temperature ('*~degree*C*')')) +
-  ylab(expression(ET~(mm))) 
+    stat_correlation(mapping = use_label(c("R", "p.value")), label.x = "left", label.y = "top", size = eq_size) +
+ ylab(expression(ET~(mm~d^-1)))
 
 
 
@@ -1034,17 +1040,19 @@ f4b
 
 f4c <- Seasonal_Summary %>%
   filter(Season != "Full Year") %>% 
-ggplot(aes(x = RH_ave, y = ET_sum, color = Season)) +
-  geom_point(aes(x = RH_ave, y = ET_sum, shape = H_Year), size = 2) +
+ggplot(aes(x = RH_ave, y = ET_mean, color = Season)) +
+  geom_point(aes(x = RH_ave, y = ET_mean, shape = H_Year), size = 2) +
    geom_errorbar(aes(xmin = RH_ave - RHSE, xmax = RH_ave +  RHSE)) +
+      geom_errorbar(aes(ymin = ET_mean - ETSE, ymax = ET_mean +  ETSE)) +
     scale_shape_manual(values= shapes, breaks = c("Year1", "Year2", "Year3", "Year4", "Year5", "Year6")) +
   theme_classic() +
-    stat_poly_line(formula = formula, alpha = 0.2) +
-    stat_poly_eq(aes(label =  paste(after_stat(eq.label), "*\": \"*", 
-                                  after_stat(rr.label), "*\", \"*", 
-                                  after_stat(p.value.label), "*\".\"",
-                                  sep = "")),
-               formula = formula, size = eq_size, vstep = 0.06, label.x = "right") +
+    # stat_poly_line(formula = formula, alpha = 0.2) +
+    # stat_poly_eq(aes(label =  paste(after_stat(eq.label), "*\": \"*", 
+    #                               after_stat(rr.label), "*\", \"*", 
+    #                               after_stat(p.value.label), "*\".\"",
+    #                               sep = "")),
+    #            formula = formula, size = eq_size, vstep = 0.06, label.x = "right") +
+    stat_correlation(mapping = use_label(c("R", "p.value")), label.x = "right", label.y = "top", size = eq_size) +
   theme(legend.position="none")  +
   xlab(expression(Relative~Humidity~(`%`))) +
   ylab(expression(ET~(mm))) 
@@ -1062,14 +1070,12 @@ f4c
 
 
 
-
 F4 <- plot_grid(f4a, f4b, f4c,  labels = "AUTO", ncol = 3, nrow = 1, common.legend = TRUE)
 
 F4
 
 
 # ggsave(here("Graphs", "Figure4.pdf"), height = 3)
-# 
 # ggsave(here("Graphs", "Figure4.svg"), dpi = 300, height = 3)
 
 
@@ -1282,35 +1288,34 @@ title("NEP")
 
 # RDA of full model, gives us the fractions of [a + b + c + d + e + f + g]
 rda.all <- rda (Growing_Season$NEP ~ Growing_Season$VPD_mean + Growing_Season$SWC_mean + Growing_Season$SWC_mean_dormant)
-anova.cca(rda.all) #the global model is significant P = 0.008333  all
+anova.cca(rda.all)
 
 #Marginal effect of growing season swc [a + d  + g + f]
 rda.growing.swc <- rda (Growing_Season$NEP ~ Growing_Season$SWC_mean)
-anova.cca(rda.growing.swc) #The partial effect of growing season swc fraction is not significant P= 0.2486
+anova.cca(rda.growing.swc) 
 
 
 #Marginal effect of dormant season swc [b + d + e + g]
 rda.dormant.swc <- rda (Growing_Season$NEP ~ Growing_Season$SWC_mean_dormant)
-anova.cca(rda.dormant.swc) #The partial effect of growing season swc fraction is significant P= 0.06944
+anova.cca(rda.dormant.swc) 
 
 
 #Marginal effect of vpd [c + e + f + g]
 rda.vpd <- rda (Growing_Season$NEP ~ Growing_Season$VPD_mean)
-anova.cca(rda.vpd) #the marginal effect is significant P = 0.0138
+anova.cca(rda.vpd) 
 
  # Partial effect of SWC growing season [a] 
 rda.vpd.swc.growing <- rda (Growing_Season$NEP ~ Growing_Season$SWC_mean + Condition(Growing_Season$VPD_mean + Growing_Season$SWC_mean_dormant))
-anova.cca(rda.vpd.swc.growing ) #the marginal effect is significant P = 0.04861
+anova.cca(rda.vpd.swc.growing ) 
 
 
 # Partial effect of SWC dormant season [b] 
 rda.vpd.swc.dormant<- rda (Growing_Season$NEP ~ Growing_Season$SWC_mean_dormant + Condition(Growing_Season$VPD_mean + Growing_Season$SWC_mean))
-anova.cca(rda.vpd.swc.dormant) #the marginal effect is significant P = 0.05417
+anova.cca(rda.vpd.swc.dormant) 
 
 # Partial effect of VPD [c] 
 rda.swc.dormant.vpd <- rda (Growing_Season$NEP ~ Growing_Season$VPD_mean + Condition(Growing_Season$SWC_mean_dormant + Growing_Season$SWC_mean))
-anova.cca(rda.swc.dormant.vpd) #the marginal effect is significant P = 0.00694
-
+anova.cca(rda.swc.dormant.vpd) 
 
 #create dummy dataframe
 df.venn.all <- data.frame(x = c(3, 1, 2),y = c(1, 1,2.8),labels = c('SWC Dormant\n0.07', 'SWC Growing\n0.12',"VPD\n0.58"))
@@ -1336,8 +1341,8 @@ F5 <- ggarrange(f5a,f5b, f5c,f5d, f5f, f5e, ncol = 2, nrow = 3, common.legend = 
 
 F5
 
-ggsave(here("Graphs", "Figure5.pdf"))
-ggsave(here("Graphs", "Figure5.svg"), dpi = 300)
+# ggsave(here("Graphs", "Figure5.pdf"))
+# ggsave(here("Graphs", "Figure5.svg"), dpi = 300)
 ```
 
 
@@ -1445,7 +1450,98 @@ ggsave(here("Graphs", "SF1.pdf"))
 ggsave(here("Graphs", "SF1.svg"), dpi = 300)
 
 ```
+
+## SF2
+
+```{r}
+
+# 
+# formula <- y ~ x
+# equation <- function(x){85.7 + 20.2*x}
+
+sf2a <- Seasonal_Summary %>%
+  filter(Season != "Full Year") %>% 
+ggplot(aes(y = -NEE, x = Tair, color = Season)) +
+  geom_point(aes(y = -NEE, x =Tair, shape = H_Year), size = 2) +
+  geom_errorbar(aes(ymin = -NEE - NEESE, ymax = -NEE +  -NEESE)) +
+  geom_errorbar(aes(xmin = Tair - TairSE, xmax = Tair +  TairSE)) +
+    scale_shape_manual(values= shapes, breaks = c("Year1", "Year2", "Year3", "Year4", "Year5", "Year6")) +
+    #stat_poly_line(formula = formula, alpha = 0.2) +
+    # stat_poly_eq(aes(label =  paste(after_stat(eq.label), "*\": \"*", 
+    #                               after_stat(rr.label), "*\", \"*", 
+    #                               after_stat(p.value.label), "*\".\"",
+    #                               sep = "")),
+    #            formula = formula, size = eq_size, vstep = 0.06) +
+  stat_correlation(mapping = use_label(c("R", "p.value")), label.x = "left", label.y = "top", size = eq_size) +
+  theme_classic() +
+  theme(legend.position="none")  +
+  xlab(expression('Temperature ('*~degree*C*')')) +
+  ylab(expression(NEP~(g~C~m^-2~d^-1))) 
+
+
+
+sf2a <-  ggpar(sf2a, palette = c(#"#178df5",  
+  "#8b4513", "#228b22")) #+
+  #              stat_function(fun = equation, aes(x = VPD_mean), color = "#178df5", alpha = 0.5) +
+  # geom_text(aes(4,65, label=(paste(expression("y = 85.7 + 20.2x")))),parse = F, color = "#178df5", size = eq_size)  +
+  # geom_text(aes(3,50, label=(paste(expression("R"^2*" = 0.86")))),parse = TRUE, color = "#178df5", size = eq_size) +
+  # geom_text(aes(3, 35, label=(paste(expression("P < 0.01 ")))),parse = TRUE, color = "#178df5", size = eq_size)
+           
+sf2a
+
+sf2b <- Seasonal_Summary %>%
+  filter(Season != "Full Year") %>% 
+ggplot(aes(y = -NEE, x = RH_ave, color = Season)) +
+  geom_point(aes(y = -NEE, x =RH_ave, shape = H_Year), size = 2) +
+  geom_errorbar(aes(ymin = -NEE - NEESE, ymax = -NEE +  -NEESE)) +
+    geom_errorbar(aes(xmin = RH_ave - RHSE, xmax = RH_ave +  RHSE)) +
+    scale_shape_manual(values= shapes, breaks = c("Year1", "Year2", "Year3", "Year4", "Year5", "Year6")) +
+    #stat_poly_line(formula = formula, alpha = 0.2) +
+    # stat_poly_eq(aes(label =  paste(after_stat(eq.label), "*\": \"*", 
+    #                               after_stat(rr.label), "*\", \"*", 
+    #                               after_stat(p.value.label), "*\".\"",
+    #                               sep = "")),
+    #            formula = formula, size = eq_size, vstep = 0.06) +
+  stat_correlation(mapping = use_label(c("R", "p.value")), label.x = "left", label.y = "top", size = eq_size) +
+  theme_classic() +
+  theme(legend.position="none")  +
+  xlab(expression(Relative~Humidity~(`%`))) +
+  ylab(expression(NEP~(g~C~m^-2~d^-1))) 
+
+
+
+sf2b <-  ggpar(sf2b, palette = c(#"#178df5",  
+  "#8b4513", "#228b22")) #+
+  #              stat_function(fun = equation, aes(x = VPD_mean), color = "#178df5", alpha = 0.5) +
+  # geom_text(aes(4,65, label=(paste(expression("y = 85.7 + 20.2x")))),parse = F, color = "#178df5", size = eq_size)  +
+  # geom_text(aes(3,50, label=(paste(expression("R"^2*" = 0.86")))),parse = TRUE, color = "#178df5", size = eq_size) +
+  # geom_text(aes(3, 35, label=(paste(expression("P < 0.01 ")))),parse = TRUE, color = "#178df5", size = eq_size)
+           
+sf2b
+
+
+
+
+
+
+
+
+sf2 <- plot_grid(sf2a, sf2b,  labels = "AUTO", ncol = 2, nrow = 1, common.legend = TRUE)
+
+sf2
+
+
+ggsave(here("Graphs", "sf2.pdf"), height = 3)
+# 
+ggsave(here("Graphs", "sf2.svg"), dpi = 300, height = 3)
+
+
+
+```
+
 ## ST1
+
+
 
 ```{r}
 gt_sums <- Seasonal_Summary %>% 
@@ -1476,40 +1572,6 @@ gt_sums
 ```
 
 
-
-```{r}
-
-Seasonal_Summary$Season <- factor(Seasonal_Summary$Season, levels = c("Dormant Season", "Growing Season","Full Year"))
-
-
-gt_seasonal_summary_means <- Seasonal_Summary %>% 
-  group_by(Crop) %>% 
-  arrange(Season) %>% 
-  mutate(NEP_total = -NEE_total,
-         NEP_mean = -NEE,
-         RH = RH_ave) %>% 
-  rename(Days = `n()`,
-         `PRCP` = PRCP_sum,
-         SWC50 = SWC_50,
-         SWC5 = SWC_05,
-         VPD = VPD_mean,
-         NEP = NEP_mean) %>% 
-  select(Crop, H_Year, Season, Days, VPD, Tair, RH, Rn, PRCP_mean, ET_mean, SWC50, ER, GEP, ER, NEP) %>% 
-  gt(rowname_col = "Year") %>% 
-  fmt_number(
-    columns = c(4),
-    decimals = 0) %>% 
-   fmt_number(
-    columns = 5:14,
-    decimals = 2) %>% 
-  cols_label(PRCP_mean = "PRCP",
-             ET_mean = "ET")
-
-
-gt_seasonal_summary_means
-
-
-```
 
 
 
